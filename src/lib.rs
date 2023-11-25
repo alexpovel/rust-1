@@ -44,7 +44,9 @@
 
 pub mod ffi;
 mod idna;
+mod url_search_params;
 pub use idna::Idna;
+pub use url_search_params::URLSearchParams;
 
 use core::{borrow, ffi::c_uint, fmt, hash, ops};
 use derive_more::Display;
@@ -730,7 +732,7 @@ impl PartialEq for Url {
 
 impl PartialOrd for Url {
     fn partial_cmp(&self, other: &Self) -> Option<core::cmp::Ordering> {
-        self.href().partial_cmp(other.href())
+        Some(self.cmp(other))
     }
 }
 
